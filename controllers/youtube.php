@@ -20,4 +20,11 @@ class YouTube extends Site_Controller
 		$this->render();
 	}
 	
+	function widgets_recent_videos()
+	{
+		$this->data['videos'] = simplexml_load_file('http://gdata.youtube.com/feeds/api/users/'.config_item('youtube_default_account').'/uploads?alt=rss');
+	
+		$this->load->view('widgets/recent_videos', $this->data);
+	}
+	
 }

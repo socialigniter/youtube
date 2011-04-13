@@ -26,8 +26,7 @@ class Google_oauth
     const SCOPE         = 'https://gdata.youtube.com'; //YouTube
 
     //Array that should contain the consumer secret and key which should be passed into the constructor.
-    private $_consumer	= false;
-    
+    private $_consumer	= false;    
 
     /**
      * Pass in a parameters array which should look as follows:
@@ -59,7 +58,7 @@ class Google_oauth
      */
     public function get_request_token($callback)
     {
-        $baseurl = self::SCHEME.'://'.self::HOST.self::REQUEST_URI;
+        $baseurl	= self::SCHEME.'://'.self::HOST.self::REQUEST_URI;
 
         //Generate an array with the initial oauth values we need
         $auth = build_auth_array(

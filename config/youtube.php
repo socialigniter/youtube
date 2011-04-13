@@ -12,5 +12,6 @@
 * Description: this file Social Igniter
 */
 
+$config['youtube_path']				= 'youtube/';
 $config['google_consumer_key']		= 'social-igniter:8890';
 $config['google_consumer_secret']	= 'abc123doremi';

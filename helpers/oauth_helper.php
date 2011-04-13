@@ -7,7 +7,7 @@
 class OAUTH_ALGORITHMS
 {
     const HMAC_SHA1 = 'HMAC-SHA1';
-    const RSA_SHA1 = 'RSA-SHA1';
+    const RSA_SHA1	= 'RSA-SHA1';
 }
 
 /**

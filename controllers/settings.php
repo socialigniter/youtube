@@ -7,15 +7,30 @@ class Settings extends Dashboard_Controller
 
 		if ($this->data['logged_user_level_id'] > 1) redirect('home');	
         
-        $this->load->config('module_template');
+        $this->load->config('youtube');
         
-		$this->data['page_title']	= 'Settings';
+		$this->data['page_title']	= 'YouTube';
     }
  
  	function index()
 	{ 	
-		$this->data['sub_title'] = 'Template';
-		$this->render();
-	}	
+		$this->data['sub_title'] 	= 'Settings';
+		$this->data['shared_ajax'] .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);
+		$this->render('dashboard_wide');
+	}
+	
+	function widgets()
+	{
+		$this->data['sub_title'] 	= 'Widgets';		
+		$this->data['shared_ajax'] .= $this->load->view(config_item('dashboard_theme').'/partials/settings_modules_ajax.php', $this->data, true);
+		$this->render('dashboard_wide');
+	}
+	
+	function install()
+	{
+		$this->data['sub_title'] 	= 'Install';
 
+
+		$this->render();	
+	}
 }

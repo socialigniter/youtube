@@ -8,19 +8,19 @@ class Connections extends MY_Controller
 	
 	function youtube_request()
 	{	
+		$token = NULL;
+	
 	    $params['key'] 				= $this->config->item('google_consumer_key');
 	    $params['secret'] 			= $this->config->item('google_consumer_secret');
-	    $params['algorithm'] 		= "HMAC-SHA1";
-		$params['access_token'] 	= array('oauth_token' => urlencode($token));
+	    $params['algorithm'] 		= "RSA-SHA1";
+	    $params['method']			= 'POST';
+		//$params['access_token'] 	= array('oauth_token' => urlencode('asdasd'));
 	
 	    $this->load->library('google_oauth', $params);
 	    $response = $this->google_oauth->get_request_token(site_url("/user/youtube_access"));
 	    
 	    //$this->_store_somewhere($response['token_secret']);
-	
-	    redirect($response['redirect']);
-	
-		print_r($response);	
+	    redirect($response['redirect']);	
 	}
 	
 	function youtube_access()
