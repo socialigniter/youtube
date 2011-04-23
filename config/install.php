@@ -1,6 +1,10 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 /**
+<<<<<<< HEAD
 * Name:			Social Igniter : Youtube : Install
+=======
+* Name:			Social Igniter : YouTuve : Install
+>>>>>>> d4388c8a3a660c454eb2a345de38334464637f01
 * Author: 		Brennan Novak
 * 		  		contact@social-igniter.com
 *         		@brennannovak
@@ -15,7 +19,7 @@
 /* Settings */
 $config['youtube_settings']['enabled'] 						= 'TRUE';
 $config['youtube_settings']['consumer_key'] 				= '';
-$config['youtube_settings']['consumer_key_secret'] 			= '';
+$config['youtube_settings']['consumer_key_secret']			= '';
 $config['youtube_settings']['social_login']					= 'FALSE';
 $config['youtube_settings']['social_connection']			= 'FALSE';
 $config['youtube_settings']['archive']						= 'TRUE';
