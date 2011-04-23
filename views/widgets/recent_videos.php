@@ -1,5 +1,5 @@
 <style>
-#widget_recent_videos { margin: 25px 0 0 0; }
+#widget_recent_videos { margin: 0; }
 img.youtube_sidebar_thumbnail { width: 225px; }	
 </style>
 <div id="widget_recent_videos">
