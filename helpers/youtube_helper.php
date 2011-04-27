@@ -41,43 +41,47 @@ function youtube_save_flv($video, $save_path)
 	file_put_contents($save_path.$videos.'.flv', $video_data);
 }
 
-function youtube_get_id_from_url($str, $protocol='(http://)|(https://)|(http://www.)|(https://www.)|(www.)')
+function youtube_get_id_from_url($str)
 {
+	$protocol	='(http://)|(https://)|(http://www.)|(https://www.)|(www.)';	// Regex for allowed protocol
 	$protocol	= str_replace('.', '\.', str_replace('/', '\/', $protocol)); 	// escape those reg exp characters
 	$protocol	= ($protocol != '') ? '^(' . $protocol . ')' : $protocol; 		//if empty arg passed, let it it match anything at beginning
 	$match_str	= '/' . $protocol . 'youtube\.com\/(.+)(v=.+)/'; 				//build the match string
 	preg_match($match_str, $str, $matches); 									// find the matches and put them in $matches variable
 	
+	// Bad URI
 	if (count($matches) < 3)
 	{ 
 		//No matter what protocol/prefix, we should have at least 3 matches
-	  	return array(false, 'Invalid URI', $matches); //bad URI
+	  	return FALSE;
 	}
 	else
 	{ 
-		//so far so good....
-		$qs = explode('&',$matches[count($matches)-1]); 	//the last match will be the querystring - split them at amperstands
-		$vid = false; 										//default the video ID to false
+		// So far so good....
+		$qs		= explode('&',$matches[count($matches)-1]); 	//the last match will be the querystring - split them at amperstands
+		$vid	= false; 										//default the video ID to false
 		
 		for ($i=0; $i<count($qs); $i++)
 		{ 
-			//loop through the params		
+			// loop through the params		
 			$x = explode('=', $qs[$i]);
 			
-			 //split at = to find key/value pairs
+			 // split at = to find key/value pairs
 			if ($x[0] == 'v' && $x[1])
 			{ 
-				//if the param is 'v', and it has a value associated, we want it
-				$vid = $x[1]; // set the video id to the val
+				// if the param is 'v', and it has a value associated, we want it
+				// set the video id to the val
+				$vid = $x[1];
 				
-				return array(true, $vid, $matches);
+				return $vid;
 			}
 			else
 			{
-				return array(false, 'Missing ID', $matches); //invalid querystring - couldn't find the video ID
+				 //invalid querystring - couldn't find the video ID
+				return FALSE;
 			}
 		}
 
-		return array(false, false, false); //everything went wrong....ouch
+		return FALSE; //everything went wrong....ouch
 	}
 }
