@@ -18,10 +18,10 @@ class Google_oauth2
 	public function authorizeURL($scope='')
 	{
 		$params = array(
-			'client_id' => $this->_clientID,
-			'response_type' => 'code',
-			'scope' => $scope,
-			'redirect_uri' => $this->_buildRedirectURI()
+			'client_id' 	=> $this->_clientID,
+			'redirect_uri' 	=> base_url().'connections/youtube/callback',//$this->_buildRedirectURI(),
+			'scope'			=> 'https://www.google.com/m8/feeds/',
+			'response_type' => 'token',
 		);
 			
 		return 'https://accounts.google.com/o/oauth2/auth?' . http_build_query($params);
@@ -36,11 +36,11 @@ class Google_oauth2
 	public function callback()
 	{
 		$params = array(
-			'client_id' => $this->_clientID,
-			'redirect_uri' => $this->_buildRedirectURI(),
-			'grant_type' => 'authorization_code',
+			'client_id' 	=> $this->_clientID,
+			'redirect_uri' 	=> $this->_buildRedirectURI(),
+			'grant_type' 	=> 'authorization_code',
 			'client_secret' => $this->_clientSecret,
-			'code' => $_GET['code']
+			'code' 			=> $_GET['code']
 		);
 	
 		$token = $this->_request('https://accounts.google.com/o/oauth2/token', $params);
@@ -48,7 +48,7 @@ class Google_oauth2
 
 		if(is_object($token) && k($token, 'access_token'))
 		{
-			$this->accessToken = $token->access_token;
+			$this->accessToken	= $token->access_token;
 			$this->refreshToken = $token->refresh_token;
 			return TRUE;
 		}
@@ -75,7 +75,9 @@ class Google_oauth2
 	public function request($url, $params=array(), $post=FALSE)
 	{
 		if($this->accessToken)
+		{
 			$params['oauth_token'] = $this->accessToken;
+		}
 
 		$params['alt'] = 'jsonc';
 			
