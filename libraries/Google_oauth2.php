@@ -63,6 +63,26 @@ class Google_oauth2
 		return array('info' => $info, 'output' => $output);
 	}
 	
+	function check_request_response($request, $refresh_token)
+	{
+		if ($request['info']['http_code'] == 200)
+		{	
+			print_r($request['output']);	
+		}
+		// Awwww auth token expired
+		elseif ($request['info']['http_code'] == 401)
+		{
+			$token = $this->google_oauth2->get_tokens('refresh_token', $refresh_token);
+			$token = json_decode($token);
+			
+			print_r($token);
+		}
+		else
+		{
+			print_r($request);
+		}
+	}		
+	
 	function request_ssl_get($url)
 	{
 		$options = array(
