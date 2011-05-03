@@ -80,13 +80,19 @@ class Connections extends MY_Controller
 		// Is Returning From Allow / Deny
 		if (isset($_GET['code']))
 		{
-			$tokens			= $this->google_oauth2->get_tokens('authorization_code', $_GET['code']);
-			$tokens 		= json_decode($tokens['output']);			
-
-			$youtube_user	= $this->google_oauth2->request_ssl_get('http://gdata.youtube.com/feeds/api/users/default?oauth_token='.$tokens->access_token);
-			$youtube_user	= simplexml_load_string($youtube_user['output']);
-			$check_connection = $this->social_auth->check_connection_username($youtube_user->author->name, $this->module_site->site_id);
-
+			// Get Tokens
+			$tokens				= $this->google_oauth2->get_tokens('authorization_code', $_GET['code']);
+			$tokens 			= json_decode($tokens['output']);
+			
+			// Get YouTube user
+			$youtube_user		= $this->google_oauth2->request_ssl_get('http://gdata.youtube.com/feeds/api/users/default?oauth_token='.$tokens->access_token);
+			$youtube_user		= simplexml_load_string($youtube_user['output']);
+			
+			// Make Googles strict data typing proper
+			$youtube_user_id	= (string)$youtube_user->author->name;
+			$youtube_username	= (string)$youtube_user->author->name;
+			$check_connection 	= $this->social_auth->check_connection_user_id($youtube_user_id, 'youtube');
+			
 			if (connection_has_auth($check_connection))
 			{			
 				$this->session->set_flashdata('message', "You've already connected this Twitter account");
@@ -97,28 +103,27 @@ class Connections extends MY_Controller
 				// Add Connection	
 		   		$connection_data = array(
 		   			'site_id'				=> $this->module_site->site_id,
-		   			'user_id'				=> $user_id,
+		   			'user_id'				=> $this->session->userdata('user_id'),
 		   			'module'				=> 'youtube',
 		   			'type'					=> 'primary',
-		   			'connection_user_id'	=> $youtube_user->id,
-		   			'connection_username'	=> $youtube_user->author->name,
+		   			'connection_user_id'	=> $youtube_user_id,
+		   			'connection_username'	=> $youtube_username,
 		   			'auth_one'				=> $tokens->access_token,
 		   			'auth_two'				=> $tokens->refresh_token
 		   		);
-	
+
 	       		// Update / Add Connection	       		
-	       		if (!$check_connection)
+	       		if ($check_connection)
 	       		{
-					$connection = $this->social_auth->add_connection($connection_data);
+	       			$connection = $this->social_auth->update_connection($check_connection->connection_id, $connection_data);
 	       		}
 	       		else
 	       		{
-	       			//$connection = $this->social_auth->update_connection($check_connection->connection_id, $connection_data);	       		
-					echo 'NEED to update DA token';
+					$connection = $this->social_auth->add_connection($connection_data);
 				}
 
 				// Connection Status				
-/*				if ($connection)
+				if ($connection)
 				{
 					$this->social_auth->set_userdata_connections($this->session->userdata('user_id'));
 				
@@ -130,14 +135,11 @@ class Connections extends MY_Controller
 				 	$this->session->set_flashdata('message', "That YouTube account is connected to another user");
 				 	redirect('settings/connections', 'refresh');
 				}
-*/
-			}	
-			
+			}
 		}
 		else
 		{
 			redirect($this->google_oauth2->authorize_url('http://gdata.youtube.com/feeds/'));		
-//			echo 'WANNA REDIRECT';
 		}
 	}
 	
