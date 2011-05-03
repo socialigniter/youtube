@@ -18,8 +18,8 @@
 */
 /* Settings */
 $config['youtube_settings']['enabled'] 						= 'TRUE';
-$config['youtube_settings']['consumer_key'] 				= '';
-$config['youtube_settings']['consumer_key_secret']			= '';
+$config['youtube_settings']['client_id']	 				= '';
+$config['youtube_settings']['client_secret']				= '';
 $config['youtube_settings']['social_login']					= 'FALSE';
 $config['youtube_settings']['social_connection']			= 'FALSE';
 $config['youtube_settings']['archive']						= 'TRUE';

@@ -8,10 +8,10 @@
 
 	<h3>Application Keys</h3>
 
-	<p>YouTube requires <a href="https://youtube.com" target="_blank">registering your application</a></p>
+	<p>YouTube requires registering your application in the <a href="https://code.google.com/apis/console/" target="_blank">Google API Console</a></p>
 				
-	<p><input type="text" name="consumer_key" value="<?= $settings['youtube']['consumer_key'] ?>"> Consumer Key </p> 
-	<p><input type="text" name="consumer_key_secret" value="<?= $settings['youtube']['consumer_key_secret'] ?>"> Consumer Key Secret</p>
+	<p><input type="text" name="client_id" value="<?= $settings['youtube']['client_id'] ?>"> Client ID</p> 
+	<p><input type="text" name="client_secret" value="<?= $settings['youtube']['client_secret'] ?>"> Client Secret</p>
 
 </div>
 
