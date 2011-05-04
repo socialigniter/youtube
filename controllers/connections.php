@@ -24,15 +24,18 @@ class Connections extends MY_Controller
 		if (isset($_GET['code'])) $code = '?code='.$_GET['code'];
 		else $code = '';
 
-		// User Is Logged In		
+		// User Logged In		
 		if ($this->social_auth->logged_in()) redirect('connections/youtube/add'.$code);
 	
-		// Is Returning From Allow / Deny
+		// Returning From Allow / Deny
 		if (isset($_GET['code']))
 		{
 			// Get Tokens
 			$tokens			= $this->google_oauth2->get_tokens('authorization_code', $_GET['code']);
 			$tokens 		= json_decode($tokens['output']);						
+			
+			// Opps
+			if (!isset($tokens->access_token)) redirect('connections/youtube', 'refresh');
 
 			// Get YouTube user
 			$youtube_user	= $this->google_oauth2->request_ssl_get('http://gdata.youtube.com/feeds/api/users/default?oauth_token='.$tokens->access_token);
@@ -42,9 +45,6 @@ class Connections extends MY_Controller
 			$youtube_username	= (string)$youtube_user->author->name;
 			$youtube_email 		= $youtube_username.'@youtube.com';
 			$check_connection 	= $this->social_auth->check_connection_user_id($youtube_username, 'youtube');
-			
-			//echo '<pre>';
-			//print_r($youtube_user);
 
 			// Check Connection
 			if ($check_connection)
@@ -53,7 +53,7 @@ class Connections extends MY_Controller
 				if ($this->social_auth->social_login($check_connection->user_id, 'youtube')) 
 	        	{ 
 		        	$this->session->set_flashdata('message', "Login with YouTube Success");
-		        	redirect($redirect, 'refresh');
+		        	redirect(base_url().config_item('home_view_redirect'), 'refresh');
 		        }
 		        else 
 		        { 
@@ -135,7 +135,7 @@ class Connections extends MY_Controller
 				if ($this->social_auth->social_login($user_id, 'youtube'))
 	        	{
 	    			$this->session->set_flashdata('message', "User created and logged in");
-		        	redirect('home', 'refresh');
+		        	redirect($this->social_igniter->get_login_redirect(), 'refresh');
 		        }
 		        else 
 		        {
@@ -150,14 +150,6 @@ class Connections extends MY_Controller
 		}
 	}
 	
-	function test()
-	{
-		echo '<pre>';
-		print_r(simplexml_load_file('http://gdata.youtube.com/feeds/api/videos/b0WXxPucPWs'));
-	
-	
-	}
-	
 	function add()
 	{
 		// User Is Logged In
@@ -169,6 +161,9 @@ class Connections extends MY_Controller
 			// Get Tokens
 			$tokens				= $this->google_oauth2->get_tokens('authorization_code', $_GET['code']);
 			$tokens 			= json_decode($tokens['output']);
+
+			// Opps
+			if (!isset($tokens->access_token)) redirect('connections/youtube/add', 'refresh');
 			
 			// Get YouTube user
 			$youtube_user		= $this->google_oauth2->request_ssl_get('http://gdata.youtube.com/feeds/api/users/default?oauth_token='.$tokens->access_token);

@@ -20,6 +20,7 @@
 $config['youtube_settings']['enabled'] 						= 'TRUE';
 $config['youtube_settings']['client_id']	 				= '';
 $config['youtube_settings']['client_secret']				= '';
+$config['youtube_settings']['developer_key']				= '';
 $config['youtube_settings']['social_login']					= 'FALSE';
 $config['youtube_settings']['social_connection']			= 'FALSE';
 $config['youtube_settings']['archive']						= 'TRUE';

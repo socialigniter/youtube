@@ -2,12 +2,14 @@
 
 class Google_oauth2
 {
+	protected $ci;
 	private $_client_id;
 	private $_client_secret;
 	private $_base_redirect;
 
 	public function __construct($google_config)
 	{
+		$this->ci =& get_instance();	
 		$this->_client_id	  = $google_config['client_id'];
 		$this->_client_secret = $google_config['client_secret'];
 		$this->_base_redirect = $google_config['base_redirect'];
@@ -25,7 +27,7 @@ class Google_oauth2
 		return 'https://accounts.google.com/o/oauth2/auth?'.http_build_query($params);
 	}
 
-	function get_tokens($grant_type, $code)
+	function get_tokens($grant_type, $code_or_refresh)
 	{
 		// Basic Params
 		$params = array(
@@ -38,11 +40,11 @@ class Google_oauth2
 		if ($grant_type == 'authorization_code')
 		{
 			$params['redirect_uri'] = $this->_base_redirect;
-			$params['code'] 		= $code;
+			$params['code'] 		= $code_or_refresh;
 		}
 		elseif ($grant_type == 'refresh_token')
 		{
-			$params['refresh_token'] = $code;
+			$params['refresh_token'] = $code_or_refresh;
 		}
 	
 		// Sets Curl Options
@@ -100,10 +102,10 @@ class Google_oauth2
 		return array('info' => $info, 'output' => $output);
 	}
 	
-	public function request_oauth_post($oauth_token, $developer_key, $xml_data)
+	public function request_oauth_post($connection, $developer_key, $xml_data)
 	{
  		$headers = array( 
-            'Authorization: OAuth '.$oauth_token,
+            'Authorization: OAuth '.$connection->auth_one,
             'Accept: text/xml', 
             'X-GData-Key: key='.$developer_key, 
             'Content-length: '.strlen($xml_data),
@@ -124,8 +126,26 @@ class Google_oauth2
 		$ch = curl_init('https://gdata.youtube.com/action/GetUploadToken');
 		curl_setopt_array($ch, $options);
 		$output = curl_exec($ch);
-		$info = curl_getinfo($ch);
-		return array('info' => $info, 'output' => $output);
+		$info	= curl_getinfo($ch);
+
+		if ($info['http_code'] == 401)
+		{
+			$tokens = $this->get_tokens('refresh_token', $connection->auth_two);
+			$tokens = json_decode($tokens['output']);
+			
+	   		$connection_data = array(
+	   			'auth_one'				=> $tokens->access_token,
+	   			'auth_two'				=> $tokens->refresh_token
+	   		);
+
+			$new_connection = $this->ci->social_auth->update_connection($connection->connection_id, $connection_data);		
+			
+			$this->request_oauth_post($new_connection, $developer_key, $xml_data);
+		}
+		else
+		{	
+			return array('info' => $info, 'output' => $output);
+		}
 	}
 
 	public function request($url, $params=array(), $post=FALSE)
