@@ -3,7 +3,7 @@
 	<media:group>
 		<media:title type="plain"><?php echo $title; ?></media:title>
 		<media:description type="plain"><?php echo $description; ?></media:description>
-		<media:category scheme="http://gdata.youtube.com/schemas/2007/categories.cat">People</media:category>
+		<media:category scheme="http://gdata.youtube.com/schemas/2007/categories.cat"><?php echo $category ?></media:category>
       <media:keywords><?php echo $keywords; ?></media:keywords>
 	</media:group>
 </entry>

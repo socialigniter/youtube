@@ -33,7 +33,7 @@ class Api extends Oauth_Controller
 	    		// Data & XML Template
 				$data['title']			= $this->input->post('title');
 				$data['description']	= $this->input->post('description');
-				//$data['category']		= 'My Videos';
+				$data['category']		= 'People';
 				$data['keywords']		= $this->input->post('tags');
 
 				$xml_data	= $this->load->view('partials/upload_atom_data', $data, true);
@@ -45,7 +45,7 @@ class Api extends Oauth_Controller
 			    		
 					if (isset($response->url) AND isset($response->token))
 			    	{
-		        		$message = array('status' => 'success', 'message' => 'Upload token successfully created', 'data' => array('url' => (string)$response->url, 'token' => (string)$response->token));		    
+		        		$message = array('status' => 'success', 'message' => 'Awesome. Now Select the file you would like to upload', 'data' => array('url' => (string)$response->url, 'token' => (string)$response->token));		    
 		        	}
 		        	else
 		        	{

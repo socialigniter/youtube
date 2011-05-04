@@ -17,4 +17,15 @@ class Home extends Dashboard_Controller
 		$this->render('dashboard_wide');		
 	}
 	
+	function success()
+	{
+		echo '<h1>Whoopeeeee</h1>';
+	}
+	
+	function file()
+	{
+	
+	
+	}
+	
 }
