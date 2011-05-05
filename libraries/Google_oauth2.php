@@ -140,9 +140,10 @@ class Google_oauth2
 		   		);
 	
 				$new_connection = $this->ci->social_auth->update_connection($connection->connection_id, $connection_data);		
+
+				$this->request_oauth_post($new_connection, $developer_key, $xml_data);
 			}
 			
-			$this->request_oauth_post($new_connection, $developer_key, $xml_data);
 		}
 		else
 		{	
