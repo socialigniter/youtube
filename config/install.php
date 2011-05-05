@@ -27,3 +27,5 @@ $config['youtube_settings']['archive']						= 'TRUE';
 $config['youtube_settings']['default_account']				= '';
 $config['youtube_settings']['recent_videos_display']		= '4';
 $config['youtube_settings']['recent_videos_link_actions']	= 'link';
+$config['youtube_settings']['login_redirect']				= '';
+$config['youtube_settings']['connections_redirect']			= '';

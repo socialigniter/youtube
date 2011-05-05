@@ -52,13 +52,13 @@ class Connections extends MY_Controller
 				// Login
 				if ($this->social_auth->social_login($check_connection->user_id, 'youtube')) 
 	        	{ 
-		        	$this->session->set_flashdata('message', "Login with YouTube Success");
-		        	redirect(base_url().config_item('home_view_redirect'), 'refresh');
+		        	$this->session->set_flashdata('message', 'Login with YouTube Success');
+		        	redirect(login_redirect(config_item('youtube_connections_redirect')), 'refresh');
 		        }
 		        else 
 		        { 
-		        	$this->session->set_flashdata('message', "Login with YouTube Did Not Work");
-		        	redirect("login", 'refresh');
+		        	$this->session->set_flashdata('message', 'Login with YouTube Did Not Work');
+		        	redirect('login', 'refresh');
 		        }
 			}
 			else
@@ -114,7 +114,7 @@ class Connections extends MY_Controller
 				   		$connection_data = array(
 				   			'site_id'				=> $this->module_site->site_id,
 				   			'user_id'				=> $user_id,
-				   			'module'				=> 'facebook',
+				   			'module'				=> 'youtube',
 				   			'type'					=> 'primary',
 		   					'connection_user_id'	=> $youtube_username,
 			   				'connection_username'	=> $youtube_username,
@@ -126,22 +126,22 @@ class Connections extends MY_Controller
 		       		}
 		       		else
 		       		{
-		        		$this->session->set_flashdata('message', "Error creating user & logging in");
-		        		redirect("login", 'refresh');
+		        		$this->session->set_flashdata('message', 'Error creating user & logging in');
+		        		redirect('login', 'refresh');
 		       		}
-		       	}	
+		       	}
 		       		
 				// Login
 				if ($this->social_auth->social_login($user_id, 'youtube'))
 	        	{
-	    			$this->session->set_flashdata('message', "User created and logged in");
-		        	redirect($this->social_igniter->get_login_redirect(), 'refresh');
+	    			$this->session->set_flashdata('message', 'User created and logged in');
+		        	redirect(login_redirect(config_item('youtube_connections_redirect')), 'refresh');
 		        }
 		        else 
 		        {
-		        	$this->session->set_flashdata('message', "Login with Facebook in-correct");
-		        	redirect("login", 'refresh');
-		        }		       		
+		        	$this->session->set_flashdata('message', 'Login with YouTube in-correct');
+		        	redirect('login', 'refresh');
+		        }
 			}
 		}
 		else
@@ -176,8 +176,8 @@ class Connections extends MY_Controller
 			
 			if (connection_has_auth($check_connection))
 			{			
-				$this->session->set_flashdata('message', "You've already connected this Twitter account");
-				redirect('settings/connections', 'refresh');							
+				$this->session->set_flashdata('message', 'You have already connected this YouTube account');
+				redirect(connections_redirect(config_item('youtube_connections_redirect')), 'refresh');							
 			}
 			else
 			{
@@ -208,13 +208,13 @@ class Connections extends MY_Controller
 				{
 					$this->social_auth->set_userdata_connections($this->session->userdata('user_id'));
 				
-					$this->session->set_flashdata('message', "YouTube account connected");
-				 	redirect('settings/connections', 'refresh');
+					$this->session->set_flashdata('message', 'YouTube account connected');
+				 	redirect(connections_redirect(config_item('youtube_connections_redirect')), 'refresh');
 				}
 				else
 				{
-				 	$this->session->set_flashdata('message', "That YouTube account is connected to another user");
-				 	redirect('settings/connections', 'refresh');
+				 	$this->session->set_flashdata('message', 'That YouTube account is connected to another user');
+				 	redirect(connections_redirect(config_item('youtube_connections_redirect')), 'refresh');
 				}
 			}
 		}
