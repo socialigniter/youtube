@@ -133,12 +133,14 @@ class Google_oauth2
 			$tokens = $this->get_tokens('refresh_token', $connection->auth_two);
 			$tokens = json_decode($tokens['output']);
 			
-	   		$connection_data = array(
-	   			'auth_one'				=> $tokens->access_token,
-	   			'auth_two'				=> $tokens->refresh_token
-	   		);
-
-			$new_connection = $this->ci->social_auth->update_connection($connection->connection_id, $connection_data);		
+			if (isset($tokens->access_token))
+			{
+		   		$connection_data = array(
+		   			'auth_one' => $tokens->access_token
+		   		);
+	
+				$new_connection = $this->ci->social_auth->update_connection($connection->connection_id, $connection_data);		
+			}
 			
 			$this->request_oauth_post($new_connection, $developer_key, $xml_data);
 		}
