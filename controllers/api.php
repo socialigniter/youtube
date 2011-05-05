@@ -70,7 +70,6 @@ class Api extends Oauth_Controller
         $this->response($message, 200);		
 	}
 
-	/* POST types */
     function create_authd_post()
     {
 		// Load Helper
@@ -151,67 +150,5 @@ class Api extends Oauth_Controller
 
         $this->response($message, 200);        
     }    
-    
-    
-    /* PUT types */
-    function viewed_get()
-    {
-		$viewed = $this->social_tools->update_comment_viewed($this->get('id'));			
-    	
-        if($viewed)
-        {
-            $message = array('status' => 'success', 'message' => 'Comment viewed');
-        }
-        else
-        {
-            $message = array('status' => 'error', 'message' => 'Could not mark as viewed');
-        }
-
-        $this->response($message, 200);           
-    }   
-    
-    function approve_get()
-    {
-    	$approve = $this->social_tools->update_comment_approve($this->get('id'));	
-
-        if($approve)
-        {
-            $message = array('status' => 'success', 'message' => 'Comment approved');
-        }
-        else
-        {
-            $message = array('status' => 'error', 'message' => 'Could not be approved');
-        }
-
-        $this->response($message, 200);        
-    } 
-
-    /* DELETE types */
-    function destroy_get()
-    {		
-		// Make sure user has access to do this func
-		$access = $this->social_tools->has_access_to_delete('comment', $this->get('id'));
-    	
-    	// Move this up to result of "user_has_access"
-    	if ($access)
-        {
-			//$comment = $this->social_tools->get_comment($this->get('id'));
-        	$this->social_tools->delete_comment($this->get('id'));
-        
-			// Reset comments with this reply_to_id
-			$this->social_tools->update_comment_orphaned_children($this->get('id'));
-			
-			// Update Content
-			$this->social_igniter->update_content_comments_count($this->get('id'));
-        
-        	$message = array('status' => 'success', 'message' => 'Comment deleted');
-        }
-        else
-        {
-            $message = array('status' => 'error', 'message' => 'You do not have access to delete comment!');
-        }
-        
-        $this->response($message, 200);        
-    }
 
 }
