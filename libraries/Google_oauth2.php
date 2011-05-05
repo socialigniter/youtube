@@ -52,7 +52,7 @@ class Google_oauth2
 			CURLOPT_RETURNTRANSFER => 1,
 			CURLOPT_SSL_VERIFYPEER => 0,
 			CURLOPT_SSL_VERIFYHOST => 1,
-			CURLOPT_FOLLOWLOCATION => 1,
+			//CURLOPT_FOLLOWLOCATION => 1,
 			CURLOPT_USERAGENT => 'Social-Igniter 1.0 http://social-igniter.com',
 			CURLOPT_POST => TRUE,
 			CURLOPT_POSTFIELDS => http_build_query($params)
@@ -91,7 +91,7 @@ class Google_oauth2
 			CURLOPT_RETURNTRANSFER => 1,
 			CURLOPT_SSL_VERIFYPEER => 0,
 			CURLOPT_SSL_VERIFYHOST => 1,
-			CURLOPT_FOLLOWLOCATION => 1,
+			//CURLOPT_FOLLOWLOCATION => 1,
 			CURLOPT_USERAGENT => 'Social-Igniter 1.0 http://social-igniter.com'
 		);
 	
@@ -116,7 +116,7 @@ class Google_oauth2
 			CURLOPT_RETURNTRANSFER => 1,
 			CURLOPT_SSL_VERIFYPEER => 0,
 			CURLOPT_SSL_VERIFYHOST => 1,
-			CURLOPT_FOLLOWLOCATION => 1,
+			//CURLOPT_FOLLOWLOCATION => 1,
 			CURLOPT_USERAGENT  => 'Social-Igniter 1.0 http://social-igniter.com',
 			CURLOPT_HTTPHEADER => $headers, 
 			CURLOPT_POST => TRUE,
