@@ -123,7 +123,7 @@ class Google_oauth2
 			CURLOPT_POSTFIELDS => $xml_data
 		);
 
-		$ch = curl_init('https://gdata.youtube.com/action/GetUploadToken');
+		$ch = curl_init('http://gdata.youtube.com/action/GetUploadToken');
 		curl_setopt_array($ch, $options);
 		$output = curl_exec($ch);
 		$info	= curl_getinfo($ch);
