@@ -220,7 +220,15 @@ class Connections extends MY_Controller
 		}
 		else
 		{
-			redirect($this->google_oauth2->authorize_url('http://gdata.youtube.com/feeds/'));		
+			// Check If User Has Connection
+			if ($check_connection = $this->social_auth->check_connection_user($this->session->userdata('user_id'), 'youtube', 'primary'))
+			{
+				redirect(connections_redirect(config_item('youtube_connections_redirect')), 'refresh');
+			}
+			else
+			{	
+				redirect($this->google_oauth2->authorize_url('http://gdata.youtube.com/feeds/'));		
+			}
 		}
 	}
 }
