@@ -1,6 +1,7 @@
 INSERT INTO `settings` VALUES(NULL, 1, 'youtube', 'enabled', 'TRUE');
 INSERT INTO `settings` VALUES(NULL, 1, 'youtube', 'client_id', '');
 INSERT INTO `settings` VALUES(NULL, 1, 'youtube', 'client_secret', '');
+INSERT INTO `settings` VALUES(NULL, 1, 'youtube', 'developer_key', '');
 INSERT INTO `settings` VALUES(NULL, 1, 'youtube', 'social_login', 'FALSE');
 INSERT INTO `settings` VALUES(NULL, 1, 'youtube', 'social_connection', 'FALSE');
 INSERT INTO `settings` VALUES(NULL, 1, 'youtube', 'archive', 'TRUE');

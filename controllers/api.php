@@ -149,6 +149,39 @@ class Api extends Oauth_Controller
 		}
 
         $this->response($message, 200);        
-    }    
+    }  
 
+/*    
+    function get_user_uploads()
+    {
+		log_message('debug', 'RAFA inside video_lookup');
+
+		if ($this->input->post('youtube_account_opt') == 'yes')
+		{			
+			$connection	= $this->social_auth->check_connection_user($this->oauth_user_id, 'youtube', 'primary');				
+			$result		= $this->google_oauth2->request_ssl_get('http://gdata.youtube.com/feeds/api/users/'.$connection->connection_username.'/uploads');
+			$videos		= simplexml_load_string($result['output']);
+			$video_id	= str_replace('http://gdata.youtube.com/feeds/api/videos/', '',$videos->entry[0]->id);				
+			$process	= TRUE;
+		}
+		else
+		{
+			$result		= $this->google_oauth2->request_ssl_get('http://gdata.youtube.com/feeds/api/users/'.config_item('youtube_default_account').'/uploads');
+			$videos		= simplexml_load_string($result['output']);
+			$process	= FALSE;
+			$message	= array('status' => 'error', 'message' => 'We could not find your video in our <a href="http://youtube.com/'.config_item('youtube_default_account').'" target="_blank">YouTube account</a>');
+			$video_id	= NULL;
+
+			foreach ($videos->entry as $video)
+			{	
+				if ($video->title == $this->input->post('youtube_video_name'))
+				{
+					$video_id	= str_replace('http://gdata.youtube.com/feeds/api/videos/', '', $video->id);
+					$process	= TRUE;
+					break;
+				}					
+			}
+		}        
+    }
+*/
 }
