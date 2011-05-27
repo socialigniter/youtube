@@ -157,7 +157,7 @@ class Connections extends MY_Controller
 				
 		// Is Returning From Allow / Deny
 		if (isset($_GET['code']))
-		{
+		{			
 			// Get Tokens
 			$tokens				= $this->google_oauth2->get_tokens('authorization_code', $_GET['code']);
 			$tokens 			= json_decode($tokens['output']);
@@ -175,7 +175,7 @@ class Connections extends MY_Controller
 			$check_connection 	= $this->social_auth->check_connection_user_id($youtube_user_id, 'youtube');
 			
 			if (connection_has_auth($check_connection))
-			{			
+			{				
 				$this->session->set_flashdata('message', 'You have already connected this YouTube account');
 				redirect(connections_redirect(config_item('youtube_connections_redirect')), 'refresh');							
 			}
