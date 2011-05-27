@@ -1,3 +1,5 @@
+INSERT INTO `settings` VALUES(NULL, 1, 'youtube', 'widgets', 'TRUE');
+INSERT INTO `settings` VALUES(NULL, 1, 'youtube', 'categories', 'TRUE');
 INSERT INTO `settings` VALUES(NULL, 1, 'youtube', 'enabled', 'TRUE');
 INSERT INTO `settings` VALUES(NULL, 1, 'youtube', 'client_id', '');
 INSERT INTO `settings` VALUES(NULL, 1, 'youtube', 'client_secret', '');

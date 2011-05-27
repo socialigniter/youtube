@@ -17,6 +17,8 @@
 * Description: 	Install values for Youtube App for Social Igniter 
 */
 /* Settings */
+$config['youtube_settings']['widgets'] 						= 'TRUE';
+$config['youtube_settings']['categories'] 					= 'FALSE';
 $config['youtube_settings']['enabled'] 						= 'TRUE';
 $config['youtube_settings']['client_id']	 				= '';
 $config['youtube_settings']['client_secret']				= '';
