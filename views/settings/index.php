@@ -2,8 +2,9 @@
 <div class="content_wrap_inner">
 
 	<div class="content_inner_top_right">
-		<h3>Module</h3>
+		<h3>App</h3>
 		<p><?= form_dropdown('enabled', config_item('enable_disable'), $settings['youtube']['enabled']) ?></p>
+		<p><a href="<?= base_url() ?>api/<?= $this_module ?>/uninstall" id="app_uninstall" class="button_delete">Uninstall</a></p>
 	</div>
 
 	<h3>Application Keys</h3>
@@ -51,7 +52,7 @@
 
 	<p>http://youtube.com/ <input type="text" name="default_account" value="<?= $settings['youtube']['default_account'] ?>"></p> 
 
-	<input type="hidden" name="module" value="youtube">
+	<input type="hidden" name="module" value="<?= $this_module ?>">
 
 	<p><input type="submit" name="save" value="Save" /></p>
 

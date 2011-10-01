@@ -66,7 +66,7 @@ $(document).ready(function()
 			
 			console.log(video_data);	
 	
-			$(this).oauthAjax(
+			$.oauthAjax(
 			{	
 				oauth 		: user_data,		
 				url			: base_url + 'api/youtube/upload_info',
@@ -81,7 +81,7 @@ $(document).ready(function()
 					
 					if (result.status == 'success')
 					{
-						$('#content_message').notify({scroll:true,status:result.status,message:result.message});
+						$('#content_message').notify({status:result.status,message:result.message});
 						
 						$('#upload_info').hide('slow');
 						$('#upload_file').show('slow');
@@ -92,7 +92,7 @@ $(document).ready(function()
 					}
 					else
 					{
-						$('#content_message').notify({scroll:true,status:result.status,message:result.message});					
+						$('#content_message').notify({status:result.status,message:result.message});					
 					}
 			 	}
 			});
