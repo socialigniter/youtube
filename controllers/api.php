@@ -9,6 +9,28 @@ class Api extends Oauth_Controller
     	$this->form_validation->set_error_delimiters('', '');        
 	}
 	
+    /* Install App */
+	function install_get()
+	{
+		// Load
+		$this->load->library('installer');
+		$this->load->config('install');        
+
+		// Settings & Create Folders
+		$settings = $this->installer->install_settings('youtube', config_item('youtube_settings'));
+	
+		if ($settings == TRUE)
+		{
+            $message = array('status' => 'success', 'message' => 'Yay, the YouTube App was installed');
+        }
+        else
+        {
+            $message = array('status' => 'error', 'message' => 'Dang the YouTube App could not be uninstalled');
+        }		
+		
+		$this->response($message, 200);
+	}	
+
 	function upload_info_authd_post()
 	{
 		// Validation Rules
