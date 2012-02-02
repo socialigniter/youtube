@@ -1,7 +1,3 @@
-<style>
-#widget_recent_videos { margin: 0; }
-img.youtube_sidebar_thumbnail { width: 225px; }	
-</style>
 <div class="widget_<?= $widget_region ?> widget_youtube_recent_videos" id="widget_<?= $widget_id ?>">
 	<?php if ($widget_title): ?> 
 	<div class="widget_youtube_recent_videos_title"><h2><?= $widget_title ?></h2></div>
