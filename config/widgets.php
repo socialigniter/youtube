@@ -20,6 +20,7 @@ $config['youtube_widgets'][] = array(
 		'path'		=> 'widgets_recent_videos',
 		'multiple'	=> 'FALSE',		
 		'order'		=> '1',
+		'title'		=> 'Recent Videos',
 		'content'	=> ''			
 	)
 );
