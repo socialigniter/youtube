@@ -10,7 +10,7 @@ class Api extends Oauth_Controller
 	}
 	
     /* Install App */
-	function install_get()
+	function install_authd_get()
 	{
 		// Load
 		$this->load->library('installer');
