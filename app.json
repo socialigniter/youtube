@@ -1,0 +1,12 @@
+{
+	"app":"youtube",
+	"name":"YouTube",
+	"created":"2012-12-15",
+	"updated":"2012-12-15",
+	"creator":"Brennan Novak",
+	"category":"media",
+	"links":{
+		"default":"home/youtube"
+	},
+	"launcher":"yes"
+}
